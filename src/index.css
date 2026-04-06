@@ -249,6 +249,74 @@
   animation: pulse-dot 2s ease-in-out infinite;
 }
 
+/* Nav link underline animation */
+.nav-link-underline {
+  position: relative;
+}
+.nav-link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: hsl(175 80% 50%);
+  box-shadow: 0 0 6px hsl(175 80% 50% / 0.5);
+  transition: width 0.3s ease;
+}
+.nav-link-underline:hover::after {
+  width: 100%;
+}
+
+/* Glitch hover for logo */
+.glitch-hover:hover {
+  animation: glitch-text 0.3s ease-in-out;
+}
+
+/* Mobile menu slide */
+@keyframes fade-slide-down {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Countdown block hover glow */
+.countdown-block {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.countdown-block:hover {
+  border-color: hsl(175 80% 50% / 0.3);
+  box-shadow: 0 0 15px hsl(175 80% 50% / 0.1);
+}
+
+/* Signup success flash */
+@keyframes success-flash {
+  0% { border-color: hsl(120 60% 45% / 0); }
+  50% { border-color: hsl(120 60% 45% / 0.8); box-shadow: 0 0 20px hsl(120 60% 45% / 0.2); }
+  100% { border-color: hsl(120 60% 45% / 0.4); }
+}
+.signup-success {
+  animation: success-flash 0.6s ease-out;
+}
+
+/* Stat card hover bar glow */
+.stat-card {
+  position: relative;
+}
+.stat-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.stat-card:hover::before {
+  opacity: 1;
+  box-shadow: 0 0 10px currentColor;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
