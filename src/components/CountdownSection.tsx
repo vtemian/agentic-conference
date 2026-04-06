@@ -1,6 +1,37 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const TARGET = new Date("2026-10-15T09:00:00Z");
+
+const FlipDigit = ({ value }: { value: string }) => {
+  const [display, setDisplay] = useState(value);
+  const [flipping, setFlipping] = useState(false);
+  const prevValue = useRef(value);
+
+  useEffect(() => {
+    if (value !== prevValue.current) {
+      setFlipping(true);
+      const t = setTimeout(() => {
+        setDisplay(value);
+        setFlipping(false);
+        prevValue.current = value;
+      }, 150);
+      return () => clearTimeout(t);
+    }
+  }, [value]);
+
+  return (
+    <span
+      className="inline-block transition-all duration-150"
+      style={{
+        transform: flipping ? "scaleY(0.6) translateY(-2px)" : "scaleY(1) translateY(0)",
+        opacity: flipping ? 0.4 : 1,
+        filter: flipping ? "blur(1px)" : "blur(0)",
+      }}
+    >
+      {display}
+    </span>
+  );
+};
 
 const CountdownSection = () => {
   const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -39,15 +70,17 @@ const CountdownSection = () => {
           {blocks.map((b, i) => (
             <div key={b.label} className="flex items-center gap-3 md:gap-6">
               <div className="flex flex-col items-center">
-                <div className="border border-border bg-card px-4 py-3 md:px-6 md:py-4 min-w-[60px] md:min-w-[80px]">
+                <div className="border border-border bg-card px-4 py-3 md:px-6 md:py-4 min-w-[60px] md:min-w-[80px] countdown-block">
                   <span className="text-2xl md:text-4xl font-bold text-primary glow-cyan">
-                    {String(b.value).padStart(2, "0")}
+                    {String(b.value).padStart(2, "0").split("").map((d, j) => (
+                      <FlipDigit key={`${b.label}-${j}`} value={d} />
+                    ))}
                   </span>
                 </div>
                 <span className="text-[10px] text-muted-foreground mt-1 tracking-widest">{b.label}</span>
               </div>
               {i < blocks.length - 1 && (
-                <span className="text-xl md:text-3xl text-muted-foreground font-bold mb-4">:</span>
+                <span className="text-xl md:text-3xl text-muted-foreground font-bold mb-4 animate-pulse-dot">:</span>
               )}
             </div>
           ))}
