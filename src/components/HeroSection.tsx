@@ -123,7 +123,7 @@ const HeroSection = () => {
 
             {/* Details */}
             <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground mb-8">
-              <span className="border border-border px-3 py-1">DATE: <span className="text-accent">20th of Oct 2026</span></span>
+              <span className="border border-border px-3 py-1">DATE: <span className="text-accent">25th of Oct 2026</span></span>
               <span className="border border-border px-3 py-1">LOCATION: <span className="text-accent">TBD</span></span>
               <span className="border border-border px-3 py-1">STATUS: <span className="text-secondary">OPEN</span></span>
             </div>
