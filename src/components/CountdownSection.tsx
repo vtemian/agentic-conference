@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 
-const TARGET = new Date("2026-10-15T09:00:00Z");
+const TARGET = new Date("2026-11-25T09:00:00Z");
 
 const FlipDigit = ({ value }: { value: string }) => {
   const [display, setDisplay] = useState(value);
@@ -87,7 +87,7 @@ const CountdownSection = () => {
         </div>
 
         <p className="text-xs text-muted-foreground mt-6">
-          // target: 2026.10.15 — subject to change
+          // target: 2026.11.25 — subject to change
         </p>
       </div>
     </section>
