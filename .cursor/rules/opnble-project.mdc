@@ -10,7 +10,7 @@ This repository is opened by Opnble, a desktop app that runs React/Next.js proje
 
 - Name: agentic-conference
 - Branch: main
-- Dev server URL: http://localhost:3001
+- Dev server URL: http://127.0.0.1:3001
 - Source tree: mounted into a Podman container managed by Opnble
 
 ## Do not
