@@ -1,0 +1,23 @@
+---
+alwaysApply: true
+---
+
+# Opnble project context
+
+This repository is opened by Opnble, a desktop app that runs React/Next.js projects locally inside a managed Podman container. The dev server, dependencies, and port mapping are owned by Opnble: act on them through Opnble's controls, not the host shell.
+
+## Project facts
+
+- Name: agentic-conference
+- Branch: main
+- Dev server URL: http://localhost:3001
+- Source tree: mounted into a Podman container managed by Opnble
+
+## Do not
+
+- Do not run `pnpm install` (or `npm install`/`yarn install`) directly. Opnble installs dependencies inside the container.
+- Do not start, stop, or restart the dev server outside Opnble. Use Opnble's lifecycle controls so the container, port allocation, and state stay in sync.
+
+## Visual editing
+
+To make visual edits, open the Agents Window (Cmd+Shift+P -> Agents Window) and toggle Design Mode with Cmd+Shift+D.
