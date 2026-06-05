@@ -4,19 +4,34 @@ alwaysApply: true
 
 # Opnble project context
 
-This repository is opened by Opnble, a desktop app that runs React/Next.js projects locally inside a managed Podman container. The dev server, dependencies, and port mapping are owned by Opnble: act on them through Opnble's controls, not the host shell.
+This repository is opened by Opnble, a desktop app that runs React/Next.js projects locally inside a managed Podman container. The dev server, dependencies, and port mapping are owned by Opnble: act on them through Opnble's MCP tools, not the host shell.
 
 ## Project facts
 
 - Name: agentic-conference
 - Branch: main
+- Opnble slug (pass as `slug` to every MCP tool): agentic-conference
 - Dev server URL: http://127.0.0.1:3001
 - Source tree: mounted into a Podman container managed by Opnble
+
+## Use the Opnble MCP tools (do not improvise)
+
+Opnble runs an MCP server that owns this project. For any project operation, call the named Opnble MCP tool with the slug above. Never substitute a host-shell command, a manual build, or a third-party service.
+
+- Public, shareable, or preview link: use `create_preview_link` (read the live URL with `get_preview_link`, tear it down with `stop_preview_link`). Never deploy to Cloudflare Pages/Workers, Vercel, or Netlify, and never run `cloudflared`, `ngrok`, `vite preview`, or build `dist/` to host it yourself.
+- Start, stop, or restart the dev server: use `start_project`, `stop_project`, `restart_project`. Never run `pnpm dev`/`npm run dev` or kill processes on the host.
+- Inspect runtime errors or output: use `tail_logs`. Do not guess at errors or read host log files.
+- Run a build, test, or any shell command: use `exec_command`. It runs inside the project's container, where Node and the dependencies live; the host has no project toolchain.
+- Git status, branch, or pull: use `git_status`, `switch_branch`, `pull_latest`. Commit and push to GitHub with `github_push`.
+- Publish a static build: use `github_pages_publish` (undo with `github_pages_unpublish`). Never push a `gh-pages` branch by hand.
+- Snapshot, roll back, or fork the working tree: use `snapshot_project`, `rollback_project`, `fork_project`.
+
+If the Opnble MCP server is not connected, say so and ask the user to check Opnble. Do not fall back to a manual deploy or a host-shell workaround.
 
 ## Do not
 
 - Do not run `pnpm install` (or `npm install`/`yarn install`) directly. Opnble installs dependencies inside the container.
-- Do not start, stop, or restart the dev server outside Opnble. Use Opnble's lifecycle controls so the container, port allocation, and state stay in sync.
+- Do not start, stop, or restart the dev server outside Opnble. Use the MCP lifecycle tools above so the container, port allocation, and state stay in sync.
 
 ## Visual editing
 
